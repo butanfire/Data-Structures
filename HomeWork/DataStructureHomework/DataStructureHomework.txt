@@ -1,0 +1,126 @@
+================================================================================
+    public void Add(T item)
+    {
+        var newArr = new T[this.arr.Length + 1];
+        Array.Copy(this.arr, newArr, this.arr.Length);
+        newArr[newArr.Length - 1] = item;
+        this.arr = newArr;
+    }
+
+Problem 1.	Add(T) Complexity
+We have memory allocation + array copy.
+0(n)
+
+
+================================================================================
+    public T Remove(int index)
+    {
+        T result = this.arr[index];
+        var newArr = new T[this.arr.Length - 1];
+        Array.Copy(this.arr, newArr, index);
+        Array.Copy(this.arr, index + 1, newArr, index, this.arr.Length - index - 1);
+        this.arr = newArr;
+        return result;
+    }
+
+
+Problem 2.	Remove(index) Complexity – Worst Case
+We have memory allocation + 2 array copies. 
+The first Array.Copy will perform from 0 to the Length-1
+The second Array.Copy will perform maximum 1-2 operations.
+Array.Copy is linear, thus:
+0(n)
+
+================================================================================
+Problem 3.	Remove(index) Complexity – Best Case
+Same as above, but only the second array copy from 0 to length-1-index will be performed.
+Because the first array copy :
+Array.Copy(this.arr, newArr, index) , the third argument is length.
+For index 0 the length is 0, so this is skipped.
+0(n)
+
+================================================================================
+Problem 4.	Remove(index) Complexity – Average Case
+Average case should be 0(n) , because the Array.Copy is linear.
+0(n)
+
+================================================================================
+    public T RemoveFirst()
+    {
+        return this.Remove(0);
+    }
+
+Problem 5.	RemoveFirst(T) Complexity
+Because of the Array.Copy(this.arr, newArr, index); 
+the 3rd argument - index - is passed 0 for the first Array.Copy.
+This means the first array copy is "skipped".
+0(n)
+================================================================================
+
+
+    public T RemoveLast()
+    {
+        return this.Remove(this.Length - 1);
+    }
+
+Problem 6.	RemoveLast(T) Complexity
+Because of the Array.Copy(this.arr, newArr, index); 
+the 3rd argument - index - is passed this.length-1 for the Array.Copy.
+This means the second array copy will be "skipped".
+0(2*n)
+================================================================================
+
+
+public int Length
+    {
+        get
+        {
+            return this.arr.Length;
+        }
+    }
+
+Problem 7.	Length Complexity
+Easy, only 1 operation performed here. Does not depend on any input.
+0(1)
+================================================================================
+
+
+public T this[int index]
+    {
+        get
+        {
+            return this.arr[index];
+        }
+    }
+Problem 8.	This[index] Complexity
+Easy, only 1 operation performed here. Does not depend on any input.
+0(1)
+================================================================================
+
+
+    public T First
+    {
+        get
+        {
+            return this.arr[0];
+        }
+    }
+
+Problem 9.	First Complexity
+Easy, only 1 operation performed here. Does not depend on any input.
+0(1)
+================================================================================
+
+
+    public T Last
+    {
+        get
+        {
+            return this.arr[this.arr.Length - 1];
+        }
+    }
+
+Problem 10.	Last Complexity
+Easy, only 1 operation performed here. Does not depend on any input.
+0(1)
+================================================================================
